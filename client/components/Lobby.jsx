@@ -8,21 +8,32 @@ export default class Lobby extends Component {
     games: []
   }
 
-  componentDidMount(){
-    const db = firebase.firestore()
-
-    db.collection('games').onSnapshot(function(querySnapshot) {
-      const games = []
-      querySnapshot.forEach( game => games.push({game:game.data(), id: game.id}))
-      this.gamesList(games)
-    })
-  }
-
-  gamesList = (gamesArr) => {
+  gamesList = gamesArr => {
     this.setState({
       games: gamesArr
     })
   }
+
+  //how to set the state after snapshot from firebase????
+
+  componentDidMount(){
+    const db = firebase.firestore()
+
+    db.collection('games').onSnapshot(function(querySnapshot) {
+      const gamesDb = querySnapshot.docs.map( game => {
+        return {game:game.data(), id: game.id}
+      })
+      // this.setState({
+      //   games: gamesDb
+      // })
+      this.gamesList(gamesDb)
+      console.log('got games',pls)
+    })
+
+    console.log('state games',this.state.games)
+  }
+
+  
 
 
   render() {

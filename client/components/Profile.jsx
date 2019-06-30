@@ -9,7 +9,7 @@ export default class Profile extends Component {
         this is {this.props.match.params.userName}'s profile
 
         <div>
-          <Link to={`/${this.props.match.params.userName}/lobby`}>
+          <Link to={`/player/${this.props.match.params.userName}/lobby`}>
           <button>Play game</button>
           </Link>
           
